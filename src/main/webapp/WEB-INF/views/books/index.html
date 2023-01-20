@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+  <meta charset="UTF-8">
+  <title>Все книги</title>
+</head>
+<body>
+
+<div th:each=" book : ${books}">
+  <a th:text="${book.getNameBook()+', '+book.getAuthor()+', '+book.getYearBook()}"
+     th:href="@{/books/{id}(id=${book.getIdBook()}) }"
+  >user</a>
+</div>
+<!--th:href="@{ /people/{id}(id=${person.getIdPerson()}) }"-->
+<br>
+<hr/>
+<a href="/books/new">Создать</a> <br>
+
+</body>
+</html>
