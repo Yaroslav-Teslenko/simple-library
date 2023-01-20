@@ -10,7 +10,6 @@ import ua.learn.simplelibrary.models.Book;
 import java.util.List;
 import java.util.Optional;
 
-// общение со списком(базой данных), поиск, извлечение, удаление, добавление людей
 @Component
 public class BookDAO {
     private final JdbcTemplate jdbcTemplate;
@@ -35,10 +34,11 @@ public class BookDAO {
 
     public void save(Book book) {
         jdbcTemplate.update("insert into book (name_book, year_book, author, id_person) values( ?, ?,?, ?)",
-                book.getNameBook(), book.getYearBook(),book.getAuthor(), book.getIdPerson());
+                book.getNameBook(), book.getYearBook(),book.getAuthor(), 1);
     }
 
     public void update(int id, Book updatedBook) {
+        System.out.println("updatedBook "+updatedBook.getIdPerson());
         jdbcTemplate.update("update book set name_book=?,year_book=?, author=?, id_person=?  where id_book=?",
                 updatedBook.getNameBook(), updatedBook.getYearBook(), updatedBook.getAuthor(), updatedBook.getIdPerson(), id);
     }

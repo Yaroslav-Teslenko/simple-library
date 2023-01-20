@@ -17,6 +17,7 @@ public class PeopleController {
 
     private PersonDAO personDAO;
     private PersonValidator personValidator;
+
     @Autowired
     public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
@@ -25,16 +26,16 @@ public class PeopleController {
 
     @GetMapping()
     public String index(Model model) {
-        // получить всех людей из DAO, передать на отображение
+
         model.addAttribute("people", personDAO.index());
-        return "people/index"; // воздращаем шаблон, содержаюий список людей
+        return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        // получить одного по id из DAO, передать на отображение
+
         model.addAttribute("person", personDAO.show(id));
-        return "people/show";// воздращаем шаблон, содержаюий 1 человека
+        return "people/show";
     }
 
 
@@ -44,11 +45,10 @@ public class PeopleController {
     }
 
     @PostMapping()
-    //PostM потому что отправляем на запись то, что получим в форме "/people/new"
     public String create(@ModelAttribute("person")
                          @Valid Person person,
                          BindingResult bindingResult) {
-        personValidator.validate(person,bindingResult);
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/people/new";
         }
@@ -58,7 +58,6 @@ public class PeopleController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        // получить одного по id из DAO, передать на отображение
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
@@ -67,7 +66,7 @@ public class PeopleController {
     public String update(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        // @ModelAttribute сама все создаст
+
         if (bindingResult.hasErrors()) {
             return "/people/edit";
         }
@@ -76,8 +75,7 @@ public class PeopleController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
-
+    public String delete(@PathVariable("id") int id) {
         personDAO.delete(id);
         return "redirect:/people";
     }

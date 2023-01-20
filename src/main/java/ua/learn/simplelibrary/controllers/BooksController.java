@@ -13,35 +13,34 @@ import ua.learn.simplelibrary.utils.BookValidator;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/book")
-public class BookController {
+@RequestMapping("/books")
+public class BooksController {
 
     private BookDAO bookDAO;
     private BookValidator bookValidator;
     @Autowired
-    public BookController(BookDAO bookDAO,BookValidator bookValidator) {
+    public BooksController(BookDAO bookDAO, BookValidator bookValidator) {
         this.bookDAO = bookDAO;
         this.bookValidator = bookValidator;
     }
 
     @GetMapping()
     public String index(Model model) {
-       
-        model.addAttribute("book", bookDAO.index());
-        return "book/index"; 
+        model.addAttribute("books", bookDAO.index());
+        return "books/index"; 
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
        
         model.addAttribute("book", bookDAO.show(id));
-        return "book/show";
+        return "books/show";
     }
 
 
     @GetMapping("/new")
     public String newBook(@ModelAttribute("book") Book book) {
-        return "/book/new";
+        return "/books/new";
     }
 
     @PostMapping()
@@ -51,17 +50,17 @@ public class BookController {
                          BindingResult bindingResult) {
         bookValidator.validate(book,bindingResult);
         if (bindingResult.hasErrors()) {
-            return "/book/new";
+            return "/books/new";
         }
         bookDAO.save(book);
-        return "redirect:/book";
+        return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
        
         model.addAttribute("book", bookDAO.show(id));
-        return "book/edit";
+        return "books/edit";
     }
 
     @PatchMapping("/{id}")
@@ -70,15 +69,15 @@ public class BookController {
                          @PathVariable("id") int id) {
         
         if (bindingResult.hasErrors()) {
-            return "/book/edit";
+            return "/books/edit";
         }
         bookDAO.update(id, book);
-        return "redirect:/book";
+        return "redirect:/books";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@ModelAttribute("book") Book book, @PathVariable("id") int id) {
+    public String delete(@PathVariable("id") int id) {
         bookDAO.delete(id);
-        return "redirect:/book";
+        return "redirect:/books";
     }
 }
