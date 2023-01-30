@@ -11,13 +11,13 @@ public class Book {
     private int yearBook;
     @NotEmpty(message = "Author's name must be not empty")
     private String author;
-    private int idPerson;
+    private Integer idPerson;
 
 
     public Book() {
     }
 
-    public Book(int idBook, String nameBook, int yearBook, String author, int idPerson) {
+    public Book(int idBook, String nameBook, int yearBook, String author, Integer idPerson) {
         this.idBook = idBook;
         this.nameBook = nameBook;
         this.yearBook = yearBook;
@@ -29,7 +29,7 @@ public class Book {
         return idBook;
     }
 
-    public void setIdBook(int idBook) {
+    public void setIdBook(Integer idBook) {
         this.idBook = idBook;
     }
 
@@ -57,11 +57,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getIdPerson() {
+    public Integer getIdPerson() {
         return idPerson;
     }
 
-    public void setIdPerson(int idPerson) {
+    public void setIdPerson(Integer idPerson) {
         this.idPerson = idPerson;
     }
 }

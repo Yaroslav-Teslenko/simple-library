@@ -8,6 +8,7 @@
 <body>
 
 <div th:each=" book : ${books}">
+<!--  <input type="hidden" th:field="*{idPerson}" />-->
   <a th:text="${book.getNameBook()+', '+book.getAuthor()+', '+book.getYearBook()}"
      th:href="@{/books/{id}(id=${book.getIdBook()}) }"
   >user</a>

@@ -7,7 +7,7 @@
 <body>
 
 <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getIdBook()})}" th:object="${book}">
-  <input type="hidden" th:field="*{idPerson}" />
+<!--  <input type="hidden" th:field="*{idPerson}" />-->
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{nameBook}" id="name"/>
   <div style="color:red"
@@ -22,14 +22,14 @@
        th:errors="*{yearBook}">year error
   </div>
   <br/>
-  <label for="author">Enter year: </label>
+  <label for="author">Enter author: </label>
   <input type="text" th:field="*{author}" id="author"/>
   <div style="color:red"
        th:if="${#fields.hasErrors('author')}"
-       th:errors="*{author}">year error
+       th:errors="*{author}">author error
   </div>
-  <br/>
 
+  <br/>
   <hr/>
   <input type="submit" value="Сохранить"/>
 </form>

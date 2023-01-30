@@ -1,10 +1,11 @@
-package  ua.learn.simplelibrary.dao;
+package ua.learn.simplelibrary.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ua.learn.simplelibrary.models.Book;
 import ua.learn.simplelibrary.models.Person;
 
 
@@ -56,5 +57,10 @@ public class PersonDAO {
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 
+
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE id_person = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
+    }
 
 }
